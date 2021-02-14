@@ -1,8 +1,9 @@
-# test_ignimission-vuejs
+# Test_ignimission-vueJS
 
-> A Vue.js project
+> Développer un composant vue permettant d’ajouter/supprimer une liste de tâche.
+exemple: https://www.theoboudier.fr/old/images/sujetTest_ignimission-vuejs.jpg
 
-## Build Setup
+## Installer le projet
 
 ``` bash
 # install dependencies
