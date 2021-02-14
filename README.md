@@ -2,7 +2,8 @@
 
 > Consigne: Développer un composant vue permettant d’ajouter/supprimer une liste de tâche.
 exemple: https://www.theoboudier.fr/old/images/sujetTest_ignimission-vuejs.jpg
-
+## Accéder au composant:
+> Lien: https://github.com/TheoLeao/test_ignimission-vuejs/blob/main/src/components/Todos.vue
 ## Installer le projet
 
 ``` bash
