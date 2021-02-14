@@ -1,4 +1,4 @@
-# Test technique pour un poste de stage
+# Test technique sur vueJS pour un poste de stage
 
 > Consigne: Développer un composant vue permettant d’ajouter/supprimer une liste de tâche.
 exemple: https://www.theoboudier.fr/old/images/sujetTest_ignimission-vuejs.jpg
