@@ -1,6 +1,6 @@
-# Test_ignimission-vueJS
+# Test technique pour un poste de stage
 
-> Développer un composant vue permettant d’ajouter/supprimer une liste de tâche.
+> Consigne: Développer un composant vue permettant d’ajouter/supprimer une liste de tâche.
 exemple: https://www.theoboudier.fr/old/images/sujetTest_ignimission-vuejs.jpg
 
 ## Installer le projet
@@ -27,5 +27,3 @@ npm run e2e
 # run all tests
 npm test
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
