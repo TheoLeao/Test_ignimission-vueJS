@@ -2,16 +2,27 @@
   <section class="todoapp">
     <header class="header">
       <h1>Todos</h1>
-      <input type="text" class="add-todo" placeholder="Create a new todo ..." v-model="newTodo" />
+      <input
+        type="text"
+        class="add-todo"
+        placeholder="Create a new todo ..."
+        v-model="newTodo"
+        @keyup.enter="addTodo"
+      />
     </header>
     <div class="main">
       <ul class="todo-list">
-        <li class="todo">
-          <span class="title"></span>
+        <li class="todo" v-for="(todo, i) in todos" :key="i" :class="{completed: todo.completed}">
+          <input
+            type="checkbox"
+            :id="'todo'+i"
+            v-model="todo.completed"
+          />
+            <label :for="'todo'+i" class="title">{{ todo.name }}</label>
           <button>
             <font-awesome-icon icon="edit" style="color: #2f7bf6" />
           </button>
-          <button> 
+          <button>
             <font-awesome-icon icon="trash" style="color: #cc444a" />
           </button>
         </li>
@@ -22,7 +33,30 @@
 
 <script>
 export default {
-
+  data() {
+    return {
+      todos: [
+        {
+          name: "Tache n°1",
+          completed: false,
+        },
+        {
+          name: "Tache n°2",
+          completed: false,
+        },
+      ],
+      newTodo: "",
+    };
+  },
+  methods: {
+    addTodo() {
+      this.todos.push({
+        name: this.newTodo,
+        completed: false,
+      });
+      this.newTodo = "";
+    },
+  },
 };
 </script>
 
@@ -35,6 +69,7 @@ button {
   background: transparent;
   border: none;
   margin: 10px;
+  padding: px;
   -webkit-appearance: none;
   outline: none;
 }
@@ -83,10 +118,16 @@ h1 {
   font-size: var(--fontsize-input);
   color: var(--color-text);
 }
-.todo button{
-    transition: transform 200ms ease-in-out;
+.todo button {
+  transition: transform 200ms ease-in-out;
 }
-.todo button:hover{
-    transform: scale(1.2);
+.todo button:hover {
+  transform: scale(1.2);
+}
+input[type="checkbox"]{
+    display:none
+}
+.completed .title{
+    text-decoration: line-through;
 }
 </style>
