@@ -16,12 +16,17 @@
           class="todo"
           v-for="(todo, i) in todos"
           :key="i"
-          :class="{ completed: todo.completed, editing: todo === editing}
-          "
+          :class="{ completed: todo.completed, editing: todo === editing }"
         >
           <input type="checkbox" :id="'todo' + i" v-model="todo.completed" />
           <label :for="'todo' + i" class="title">{{ todo.name }}</label>
-          <input type="text" class="edit" v-model="todo.name" @keyup.enter="doneEdit" v-focus="todo === editing"/>
+          <input
+            type="text"
+            class="edit"
+            v-model="todo.name"
+            @keyup.enter="doneEdit"
+            v-focus="todo === editing"
+          />
           <button @click.prevent="editTodo(todo)">
             <font-awesome-icon
               icon="edit"
@@ -63,22 +68,34 @@ export default {
         completed: false,
       });
       this.newTodo = "";
+      this.saveStorage()
     },
     deleteTodo(todo) {
       this.todos = this.todos.filter((i) => i !== todo);
+      this.saveStorage()
     },
     editTodo(todo) {
       this.editing = todo;
+      this.saveStorage()
     },
-    doneEdit(){
+    doneEdit() {
       this.editing = null;
-    }
+      this.saveStorage()
+    },
+    saveStorage() {
+       localStorage.getItem('todos') == null ? localStorage.setItem('todos', JSON.stringify(this.todos)) : localStorage.todos = JSON.stringify(this.todos);
+    },
   },
   directives: {
-    focus (el, value){
-    if(value) el.focus();
+    focus(el, value) {
+      if (value) el.focus();
+    },
+  },
+  mounted() {
+    if (localStorage.todos) {
+      this.todos = JSON.parse(localStorage.todos);
     }
-  }
+  },
 };
 </script>
 
