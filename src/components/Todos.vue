@@ -12,17 +12,24 @@
     </header>
     <div class="main">
       <ul class="todo-list">
-        <li class="todo" v-for="(todo, i) in todos" :key="i" :class="{completed: todo.completed}">
-          <input
-            type="checkbox"
-            :id="'todo'+i"
-            v-model="todo.completed"
-          />
-            <label :for="'todo'+i" class="title">{{ todo.name }}</label>
-          <button>
-            <font-awesome-icon icon="edit" style="color: #2f7bf6" />
+        <li
+          class="todo"
+          v-for="(todo, i) in todos"
+          :key="i"
+          :class="{ completed: todo.completed, editing: todo === editing}
+          "
+        >
+          <input type="checkbox" :id="'todo' + i" v-model="todo.completed" />
+          <label :for="'todo' + i" class="title">{{ todo.name }}</label>
+          <input type="text" class="edit" v-model="todo.name" @keyup.enter="doneEdit" v-focus="todo === editing"/>
+          <button @click.prevent="editTodo(todo)">
+            <font-awesome-icon
+              icon="edit"
+              v-model="todo.name"
+              style="color: #2f7bf6"
+            />
           </button>
-          <button>
+          <button @click.prevent="deleteTodo(todo)">
             <font-awesome-icon icon="trash" style="color: #cc444a" />
           </button>
         </li>
@@ -46,6 +53,7 @@ export default {
         },
       ],
       newTodo: "",
+      editing: null,
     };
   },
   methods: {
@@ -56,7 +64,21 @@ export default {
       });
       this.newTodo = "";
     },
+    deleteTodo(todo) {
+      this.todos = this.todos.filter((i) => i !== todo);
+    },
+    editTodo(todo) {
+      this.editing = todo;
+    },
+    doneEdit(){
+      this.editing = null;
+    }
   },
+  directives: {
+    focus (el, value){
+    if(value) el.focus();
+    }
+  }
 };
 </script>
 
@@ -104,19 +126,31 @@ h1 {
   list-style: none;
 }
 .todo {
+  border: 1px solid rgb(236, 236, 236);
+}
+.todo,
+.edit {
   height: 50px;
   margin: 10px 0px;
   padding: 3px 3px 3px 20px;
   display: flex;
   flex-direction: row;
-  display: flex;
   align-items: center;
-  border: 1px solid rgb(236, 236, 236);
 }
-.todo .title {
+.edit {
+  display: none;
+  outline: none;
+  font-family: "Poppins", sans-serif !important;
+  border: 0;
+}
+.todo .title,
+.edit {
   width: 80%;
   font-size: var(--fontsize-input);
   color: var(--color-text);
+}
+.title:hover {
+  cursor: pointer;
 }
 .todo button {
   transition: transform 200ms ease-in-out;
@@ -124,10 +158,23 @@ h1 {
 .todo button:hover {
   transform: scale(1.2);
 }
-input[type="checkbox"]{
-    display:none
+input[type="checkbox"] {
+  display: none;
 }
-.completed .title{
-    text-decoration: line-through;
+.completed .title {
+  text-decoration: line-through;
+}
+.editing {
+  padding: 0;
+}
+.edit {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.editing .edit {
+  display: flex;
+}
+.editing label {
+  display: none;
 }
 </style>
