@@ -1,5 +1,6 @@
 <template>
   <section class="todoapp">
+    <!-- header -->
     <header class="header">
       <h1>Todos</h1>
       <input
@@ -10,7 +11,9 @@
         @keyup.enter="addTodo"
       />
     </header>
+    <!-- end header -->
     <div class="main">
+      <!-- list of todos -->
       <ul class="todo-list">
         <li
           class="todo"
@@ -39,6 +42,7 @@
           </button>
         </li>
       </ul>
+      <!-- end list of todos -->
     </div>
   </section>
 </template>
@@ -71,6 +75,7 @@ export default {
       this.saveStorage()
     },
     deleteTodo(todo) {
+      //filter among todos the todo you want to delete
       this.todos = this.todos.filter((i) => i !== todo);
       this.saveStorage()
     },
@@ -83,15 +88,18 @@ export default {
       this.saveStorage()
     },
     saveStorage() {
-       localStorage.getItem('todos') == null ? localStorage.setItem('todos', JSON.stringify(this.todos)) : localStorage.todos = JSON.stringify(this.todos);
+      //update the object todos or create it if it doesn't exist
+      localStorage.getItem('todos') == null ? localStorage.setItem('todos', JSON.stringify(this.todos)) : localStorage.todos = JSON.stringify(this.todos);
     },
   },
   directives: {
+    //focus(): allows you to add a focus on a dom element.
     focus(el, value) {
       if (value) el.focus();
     },
   },
   mounted() {
+    //retrieve the todos object if it exists when the page is loaded.
     if (localStorage.todos) {
       this.todos = JSON.parse(localStorage.todos);
     }
